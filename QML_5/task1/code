@@ -1,0 +1,132 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+
+Window {
+    visible: true
+    width: 400
+    height: 600
+
+    Item {
+        id: trafficLight
+        width: 150
+        height: 400
+        anchors.centerIn: parent
+
+        Column {
+            anchors.centerIn: parent
+            spacing: 10
+
+            Rectangle {
+                id: redLight
+                width: 100
+                height: 100
+                color: "grey"
+            }
+
+            Rectangle {
+                id: yellowLight
+                width: 100
+                height: 100
+                color: "grey"
+            }
+
+            Rectangle {
+                id: greenLight
+                width: 100
+                height: 100
+                color: "grey"
+            }
+        }
+
+        states: [
+            State {
+                name: "stop"
+                PropertyChanges {
+                    target: redLight
+                    color: "red"
+                }
+                PropertyChanges {
+                    target: yellowLight
+                    color: "grey"
+                }
+                PropertyChanges {
+                    target: greenLight
+                    color: "grey"
+                }
+            },
+            State {
+                name: "caution"
+                PropertyChanges {
+                    target: redLight
+                    color: "grey"
+                }
+                PropertyChanges {
+                    target: yellowLight
+                    color: "yellow"
+                }
+                PropertyChanges {
+                    target: greenLight
+                    color: "grey"
+                }
+            },
+            State {
+                name: "go"
+                PropertyChanges {
+                    target: redLight
+                    color: "grey"
+                }
+                PropertyChanges {
+                    target: yellowLight
+                    color: "grey"
+                }
+                PropertyChanges {
+                    target: greenLight
+                    color: "green"
+                }
+            }
+        ]
+
+        transitions: [
+            Transition {
+                from: "stop"
+                to: "caution"
+                SequentialAnimation {
+                    PauseAnimation { duration: 500 }
+                }
+            },
+            Transition {
+                from: "caution"
+                to: "go"
+                SequentialAnimation {
+                    PauseAnimation { duration: 500 }
+                }
+            },
+            Transition {
+                from: "go"
+                to: "stop"
+                SequentialAnimation {
+                    PauseAnimation { duration: 500 }
+                }
+            }
+        ]
+
+        Timer {
+            interval: 500
+            running: true
+            repeat: true
+            onTriggered: {
+                if (trafficLight.state === "stop") {
+                    trafficLight.state = "caution";
+                } else if (trafficLight.state === "caution") {
+                    trafficLight.state = "go";
+                } else {
+                    trafficLight.state = "stop";
+                }
+            }
+        }
+
+        Component.onCompleted: {
+            trafficLight.state = "stop";
+        }
+    }
+}
