@@ -1,0 +1,118 @@
+import QtQuick
+import QtQuick.Controls
+
+Window {
+    visible: true
+    width: 800
+    height: 600
+
+    Rectangle {
+        width: 600
+        height: 200
+        color: "burlywood"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 50
+        radius: 5
+    }
+
+    // Монитор
+    Rectangle {
+        width: 300
+        height: 200
+        color: "black"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 260
+        radius: 10
+
+        // Экран
+        Rectangle {
+            width: 280
+            height: 180
+            color: "darkgray"
+            anchors.centerIn: parent
+            radius: 5
+        }
+
+        // Подставка
+        Rectangle {
+            width: 100
+            height: 20
+            color: "black"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.bottom
+        }
+
+        Rectangle {
+            width: 40
+            height: 50
+            color: "black"
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.top: parent.bottom
+            anchors.topMargin: 20
+            radius: 5
+        }
+    }
+
+    // Клавиатура
+    Rectangle {
+        width: 250
+        height: 70
+        color: "darkgray"
+        anchors.horizontalCenter: parent.horizontalCenter
+        anchors.top: parent.bottom
+        anchors.topMargin: -175
+        radius: 5
+
+        Repeater {
+            model: 30
+            Rectangle {
+                width: 15
+                height: 15
+                color: "black"
+                radius: 2
+                anchors.top: parent.top
+                anchors.left: parent.left
+                anchors.leftMargin: (index % 10) * 25 + 5
+                anchors.topMargin: Math.floor(index / 10) * 20 + 5
+                // anchors.topMargin: (index / 10) * 20 + 5
+            }
+        }
+    }
+    // Мышь
+    Rectangle {
+        width: 50
+        height: 70
+        color: "darkgray"
+        radius: 15
+        anchors.left: parent.horizontalCenter
+        anchors.leftMargin: 150
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: 110
+
+        // Левая кнопка
+        Rectangle {
+            width: 20
+            height: 30
+            color: "gray"
+            radius: 5
+            anchors.left: parent.left
+            anchors.leftMargin: 5
+            anchors.verticalCenter: parent.verticalTop
+            anchors.verticalCenterOffset: -5
+        }
+
+        // Правая кнопка
+        Rectangle {
+            width: 20
+            height: 30
+            color: "gray"
+            radius: 5
+            anchors.right: parent.right
+            anchors.rightMargin: 5
+            anchors.verticalCenter: parent.verticalTop
+            anchors.verticalCenterOffset: -5
+        }
+    }
+}
