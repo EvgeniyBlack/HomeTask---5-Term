@@ -1,0 +1,62 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+
+ApplicationWindow {
+    visible: true
+    width: 500
+    height: 700
+
+    // Контейнер для всех элементов
+    Rectangle {
+        width: parent.width
+        height: parent.height
+        radius: 20
+        anchors.centerIn: parent
+
+        // SwipeView для переключения слайдов
+        SwipeView {
+            id: view
+            currentIndex: 1
+            anchors.fill: parent
+
+            // Первый слайд
+            Item {
+                id: firstPage
+                Rectangle {
+                    width: parent.width
+                    height: parent.height
+                    color: "yellow"
+                }
+            }
+
+            // Второй слайд
+            Item {
+                id: secondPage
+                Rectangle {
+                    width: parent.width
+                    height: parent.height
+                    color: "red"
+                }
+            }
+
+            // Третий слайд
+            Item {
+                id: thirdPage
+                Rectangle {
+                    width: parent.width
+                    height: parent.height
+                    color: "green"
+                }
+            }
+        }
+
+        // Индикатор страницы
+        PageIndicator {
+            id: indicator
+            count: view.count
+            currentIndex: view.currentIndex
+            anchors.bottom: view.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+    }
+}
