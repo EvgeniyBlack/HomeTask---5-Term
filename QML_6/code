@@ -1,0 +1,187 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+
+ApplicationWindow {
+    visible: true
+    width: 500
+    height: 700
+
+    StackView {
+        id: stackView
+        anchors.fill: parent
+        initialItem: mainPage
+    }
+
+    Component {
+        id: mainPage
+        Rectangle {
+            color: "#ffffff"
+
+            Text {
+                anchors.centerIn: parent
+                text: "Logo"
+                font.pointSize: 24
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    stackView.push(pageRed)
+                }
+            }
+        }
+    }
+
+    // Страница с красным фоном
+    Component {
+        id: pageRed
+        Rectangle {
+            color: "red"
+
+            Rectangle {
+                width: parent.width
+                height: 50
+                color: "black"
+                Text {
+                    anchors.centerIn: parent
+                    color: "white"
+                    text: "Red page"
+                    font.pointSize: 18
+                }
+            }
+
+            Button {
+                text: "Back"
+                anchors.top: parent.top
+                anchors.left: parent.left
+                onClicked: {
+                    stackView.pop()
+                }
+            }
+
+            Button {
+                text: "Green page"
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                onClicked: {
+                    stackView.push(pageGreen)
+                }
+            }
+
+            Button {
+                text: "Yellow page"
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                onClicked: {
+                    stackView.push(pageYellow)
+                }
+            }
+        }
+    }
+
+    // Страница с желтым фоном
+    Component {
+        id: pageYellow
+        Rectangle {
+            color: "yellow"
+
+            Rectangle {
+                width: parent.width
+                height: 50
+                color: "black"
+                Text {
+                    anchors.centerIn: parent
+                    color: "white"
+                    text: "Yellow page"
+                    font.pointSize: 18
+                }
+            }
+
+            Button {
+                text: "Back"
+                anchors.top: parent.top
+                anchors.left: parent.left
+                onClicked: {
+                    stackView.pop()
+                }
+            }
+
+            Button {
+                text: "Red page"
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                onClicked: {
+                    stackView.push(pageRed)
+                }
+            }
+
+            Button {
+                text: "Green page"
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                onClicked: {
+                    stackView.push(pageGreen)
+                }
+            }
+        }
+    }
+
+    // Страница с зеленым фоном
+    Component {
+        id: pageGreen
+        Rectangle {
+            color: "green"
+
+            Rectangle {
+                width: parent.width
+                height: 50
+                color: "black"
+                Text {
+                    anchors.centerIn: parent
+                    color: "white"
+                    text: "Green page"
+                    font.pointSize: 18
+                }
+            }
+
+            Button {
+                text: "Back"
+                anchors.top: parent.top
+                anchors.left: parent.left
+                onClicked: {
+                    stackView.pop()
+                }
+            }
+
+            Button {
+                text: "Red page"
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                onClicked: {
+                    stackView.push(pageRed)
+                }
+            }
+
+            Button {
+                text: "Yellow page"
+                anchors.bottom: parent.bottom
+                anchors.right: parent.right
+                onClicked: {
+                    stackView.push(pageYellow)
+                }
+            }
+        }
+    }
+    // Функция для перехода на страницу с проверкой наличия в стеке
+    function navigateToPage(pageComponent) {
+        for (var i = 0; i < stackView.depth; i++) {
+            var item = stackView.itemAt(i);
+            if (item === pageComponent) {
+                stackView.replace(item);
+                return;
+            }
+        }
+
+        stackView.push(pageComponent);
+    }
+}
