@@ -1,0 +1,80 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+import QtQuick.Layouts 1.15
+
+ApplicationWindow {
+    visible: true
+    width: 500
+    height: 700
+    title: "Task_for_Login_Page"
+
+    property string password: "" // Храним введённый пароль
+    property int maxLength: 6    // Максимальная длина пароля
+
+    Column {
+        anchors.centerIn: parent
+        spacing: 20
+
+        Text {
+            text: "Enter your password:"
+            font.pixelSize: 18
+            horizontalAlignment: Text.AlignHCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+        }
+
+        Row {
+            spacing: 10
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Repeater {
+                model: maxLength
+                Rectangle {
+                    width: 20
+                    height: 20
+                    color: "transparent"
+
+                    Text {
+                        anchors.centerIn: parent
+                        text: "*"
+                        font.pixelSize: 24
+                        color: index < password.length ? "black" : "lightgrey"
+                    }
+                }
+            }
+        }
+
+        Grid {
+            rows: 4
+            columns: 3
+            spacing: 10
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            Repeater {
+                model: [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "", "0", "Clear" ]
+                Button {
+                    text: modelData
+                    width: 70
+                    height: 50
+                    font.pixelSize: 16
+
+                    onClicked: {
+                        if (modelData === "Clear") {
+                            password = ""; // Очистка пароля
+                        } else if (password.length < maxLength && modelData !== "") {
+                            password += modelData; // Добавление символа в пароль
+                        }
+                    }
+                }
+            }
+        }
+
+        Button {
+            text: "Log In"
+            width: 100
+            anchors.left: parent.left
+            onClicked: {
+                console.log("Password entered: " + password)
+            }
+        }
+    }
+}
