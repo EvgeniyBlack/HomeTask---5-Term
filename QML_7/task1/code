@@ -1,0 +1,60 @@
+import QtQuick 2.15
+import QtQuick.Controls 2.15
+
+ApplicationWindow {
+    visible: true
+    width: 500
+    height: 700
+    title: "Task_for_Login_Page"
+
+    Rectangle {
+        width: parent.width
+        height: parent.height
+        color: "#F5F5F5" 
+
+        Column {
+            anchors.centerIn: parent
+            spacing: 20
+
+            TextField {
+                id: usernameField
+                placeholderText: "Username"
+                width: 200
+                font.pixelSize: 16
+            }
+
+            TextField {
+                id: passwordField
+                placeholderText: "Password"
+                echoMode: TextInput.Password // Скрываем вводимые символы
+                width: 200
+                font.pixelSize: 16
+            }
+
+            Row {
+                spacing: 20
+                anchors.horizontalCenter: parent
+
+                Button {
+                    text: "Log In"
+                    width: 80
+                    font.pixelSize: 14
+                    onClicked: {
+                        console.log("Username: " + usernameField.text)
+                        console.log("Password: " + passwordField.text)
+                    }
+                }
+
+                Button {
+                    text: "Clear"
+                    width: 80
+                    font.pixelSize: 14
+                    onClicked: {
+                        usernameField.text = ""
+                        passwordField.text = ""
+                    }
+                }
+            }
+        }
+    }
+}
